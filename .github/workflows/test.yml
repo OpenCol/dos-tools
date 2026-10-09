@@ -1,0 +1,21 @@
+name: tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.9", "3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      # The asset tests need a copy of the game, which this repository does not
+      # ship and CI cannot have. The codec and format tests run without one;
+      # the rest report as skipped.
+      - run: python3 tests/test_roundtrip.py
+      - run: python3 tests/test_map.py
+      - run: python3 coldos.py --help

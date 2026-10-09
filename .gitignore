@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+/game
+/workspace
+/ws
+/build
+/out
+/output
+/patched
+.DS_Store
+/dist
